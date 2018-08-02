@@ -1,0 +1,43 @@
+<!doctype html>
+<head>
+    <title>Nimbusland</title>
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body style="padding-top:4.5rem">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark mb-4">
+      <a class="navbar-brand" href="#">Cloud IP Checker</a>
+    </nav>
+
+    <main role="main" class="container">
+      <div class="jumbotron">
+          <form action = "/" method = "POST">
+              <div class="form-group">
+                  <label for="target_ip">Enter IP Address</label>
+                  <input id="target_ip" name="target_ip" type="text" class="form-control" placeholder="127.0.0.1">
+              </div>
+              <button type='submit' class="btn btn-primary">Submit</button>
+          </form>
+            {% if not ip_info %}
+                IP Address does not belong to AWS or Azure
+            {% else %}
+                <br/>
+                IP: {{ ip_info[0] }}<br/>
+                Subnet: {{ ip_info[1] }}<br/>
+                Region: {{ ip_info[2] }}<br/>
+                Provider: {{ ip_info[3].upper() }}<br/>
+                Service: {{ ip_info[4] }}<br/>
+            {%  endif %}
+
+          {% if error %}
+            {{ error_message }}
+        {% endif %}
+      </div>
+    </main>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="view-source:https://getbootstrap.com/docs/4.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+<script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
